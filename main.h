@@ -11,23 +11,24 @@
 #include "Registers.h"
 
 // Macros.
-#define CHECK_FILE_RETURN_STATUS(ACTUAL, EXP_NAME, EXP_EXT) { \
-	status = checkCLIfile(ACTUAL, EXP_NAME, EXP_EXT); \
+#define CHECK_FILE_STATUS(ACTUAL, EXP_NAME) { \
+	status = checkCLIfile(ACTUAL, EXP_NAME); \
 	if (status != NO_ERROR) { return (status); } \
 }
 
-// Structs.
-typedef struct {
-	char* memin;
-	char* memout;
-	char* regout;
-	char* trace;
-	char* cycles;
-} SimulatorFiles;
+#define SIMFILE_OPEN(HANDLE, ARG, NAME, ACCESS) { \
+	CHECK_FILE_STATUS(ARG, NAME); \
+	strcpy(HANDLE->name,  ARG); \
+	HANDLE->name_length = strlen(HANDLE->name); \
+	switch (ACCESS) { \
+		case (READ):  HANDLE->handle = fopen(HANDLE->name, "r"); break; \
+		case (WRITE): HANDLE->handle = fopen(HANDLE->name, "w"); break; \
+	} \
+}
 
 // Funciton prototypes.
-ErrorCode checkCLIfile(char* act_name, const char* exp_name, const char* exp_extention);
-ErrorCode ParseCLI(int argc, char* argv[], SimulatorFiles* file_names);
+ErrorCode checkCLIfile(char* act_name, const char* exp_name);
+ErrorCode ParseCLI(int argc, char* argv[], SimulatorFiles* files);
 void InitializeRegisters(GlobalRegisters* regs);
 
 #endif // __MAIN_H__

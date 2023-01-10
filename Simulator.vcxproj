@@ -139,10 +139,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Final Project\Simulator\HashTable.c" />
+    <ClCompile Include="..\..\Final Project\Simulator\List.c" />
     <ClCompile Include="Loop.c" />
     <ClCompile Include="main.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Final Project\Simulator\HashTable.h" />
+    <ClInclude Include="..\..\Final Project\Simulator\List.h" />
     <ClInclude Include="GlobalDefines.h" />
     <ClInclude Include="InstructionFormats.h" />
     <ClInclude Include="Loop.h" />

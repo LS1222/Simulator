@@ -1,6 +1,12 @@
 #ifndef __GLOBAL_DEFINES_H__
 #define __GLOBAL_DEFINES_H__
 
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX_FILENAME_SIZE 30
+#define MAX_MEM_LINE_LENGTH   5
+
 /*===================================
 |         INPUT FILES               |
 ====================================*/
@@ -22,6 +28,7 @@
 #define MONITOR_OUTPUT_FILE "monitor.txt"
 #define MONITOR_YUV_OUTPUT_FILE "monitor.yuv"
 
+// Enums.
 /*===================================
 |          ERROR CODES               |
 ====================================*/
@@ -31,7 +38,31 @@ typedef enum {
 	INPUT_FILE_DOES_NOT_EXISTS,
 	FILE_BAD_NAME,
 	FILE_BAD_EXTENSION,
+	MEM_EOF,
+	HALT,
 	NUM_OF_ERRORS
 } ErrorCode;
+
+typedef enum {
+	READ,
+	WRITE,
+	NONE
+} AccessEnum;
+
+// Structs.
+typedef struct {
+	char       name[MAX_FILENAME_SIZE];
+	int        name_length;
+	FILE*      handle;
+	AccessEnum access;
+} SimFile;
+
+typedef struct {
+	SimFile* memin;
+	SimFile* memout;
+	SimFile* regout;
+	SimFile* trace;
+	SimFile* cycles;
+} SimulatorFiles;
 
 #endif // __GLOBAL_DEFINES_H__

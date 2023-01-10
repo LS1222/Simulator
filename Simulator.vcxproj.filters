@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Data Structures">
+      <UniqueIdentifier>{f425ff94-dbfa-49a8-967a-d982d6cf9aa0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Data Structures">
+      <UniqueIdentifier>{f7ca5657-1ae9-4997-af32-72a6760dd888}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Loop.c">
@@ -20,6 +26,12 @@
     </ClCompile>
     <ClCompile Include="main.c">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Final Project\Simulator\HashTable.c">
+      <Filter>Source Files\Data Structures</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Final Project\Simulator\List.c">
+      <Filter>Source Files\Data Structures</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -40,6 +52,12 @@
     </ClInclude>
     <ClInclude Include="Registers.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Final Project\Simulator\List.h">
+      <Filter>Header Files\Data Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Final Project\Simulator\HashTable.h">
+      <Filter>Header Files\Data Structures</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
