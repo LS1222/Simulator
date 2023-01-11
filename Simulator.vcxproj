@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{128c555c-0bbc-4bd1-909f-54e11a9e912e}</ProjectGuid>
+    <ProjectGuid>{9b0ccc3c-9b60-4386-8342-6af01265b583}</ProjectGuid>
     <RootNamespace>Simulator</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -139,16 +139,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Final Project\Simulator\HashTable.c" />
-    <ClCompile Include="..\..\Final Project\Simulator\List.c" />
+    <ClCompile Include="HashTable.c" />
+    <ClCompile Include="List.c" />
     <ClCompile Include="Loop.c" />
     <ClCompile Include="main.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Final Project\Simulator\HashTable.h" />
-    <ClInclude Include="..\..\Final Project\Simulator\List.h" />
     <ClInclude Include="GlobalDefines.h" />
+    <ClInclude Include="HashTable.h" />
     <ClInclude Include="InstructionFormats.h" />
+    <ClInclude Include="List.h" />
     <ClInclude Include="Loop.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="Monitor.h" />

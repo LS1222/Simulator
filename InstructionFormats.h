@@ -1,18 +1,14 @@
 #ifndef __INSTRUCTION_FORMATS_H__
 #define __INSTRUCTION_FORMATS_H__
 
-typedef enum {
-
-} InstructionOpcode;
-
-typedef struct {
+typedef struct RFormat {
 	int unsigned rt     : 4;
 	int unsigned rs     : 4;
-	int unsigned rd     : 4;
+	int unsigned Rd     : 4;
 	int unsigned opcode : 8;
 } RFormat;
 
-typedef struct {
+typedef struct IFormat {
 	int unsigned rt     : 4;
 	int unsigned rs     : 4;
 	int unsigned rd     : 4;

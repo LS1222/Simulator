@@ -1,75 +1,66 @@
 #include "main.h"
 
-void splitFileExtention(char* file_name, char* name, char* ext) {
+ErrorCode checkCLIfile(char* act_name, const char* exp_name, const char* exp_extention) {
 	int   sub_index = 0;
+	char* extension = NULL;
+	char* filename  = NULL;
 	char* substring = NULL;
 
-	// Check pointers.
-	if (NULL == file_name || NULL == name || NULL == ext) {
-		return;
-	}
-
-	substring = name;
-	for (int i = 0; i < strlen(file_name); i++) {
+	filename = (char*)malloc(strlen(act_name));
+	extension = (char*)malloc(strlen(act_name));
+	substring = filename;
+	for (int i = 0; i < strlen(act_name); i++) {
 
 		// When finding a '.' delimiter, start collecting the extension.
-		if (file_name[i] == '.') {
-			substring[sub_index] = '\0';
+		if (act_name[i] == '.') {
 			sub_index = 0;
-			substring = ext;
-			continue;
+			substring = extension;
 
 			// TODO: Corner case - file contains multiple delimiters.
 		}
 
 		// Get the character into the substring [filename/extension].
-		substring[sub_index++] = file_name[i];
+		substring[sub_index++] = act_name[i];
 	}
-	
-	// Add the NULL terminator to the string.
-	substring[sub_index] = '\0';
-}
-
-ErrorCode checkCLIfile(char* act_file, const char* exp_file) {
-	char* act_name = (char*)malloc(MAX_FILENAME_SIZE);
-	char* exp_name = (char*)malloc(MAX_FILENAME_SIZE);
-	char* act_ext  = (char*)malloc(MAX_FILENAME_SIZE);
-	char* exp_ext  = (char*)malloc(MAX_FILENAME_SIZE);
-
-	splitFileExtention(act_file, act_name, act_ext);
-	splitFileExtention(exp_file, exp_name, exp_ext);
 
 	// Check file name.
-	if (strcmp(act_name, exp_name)) {
-		printf("Incorrect filename. Expected %s but got %s\n", exp_name, act_name);
+	if (strcmp(filename, exp_name)) {
+		printf("Incorrect filename. Expected %s.%s but got %s\n", exp_name, exp_extention, act_name);
 		return (FILE_BAD_NAME);
 	}
 
 	// Check file extension.
-	if (strcmp(act_ext, exp_ext)) {
-		printf("Bad extension. Expected %s.%s but got %s.%s\n", exp_name, exp_ext, act_name, act_ext);
+	if (strcmp(extension, exp_extention)) {
+		printf("Bad extension. Expected %s.%s but got %s\n", exp_name, exp_extention, act_name);
 		return (FILE_BAD_EXTENSION);
 	}
 
 	return (NO_ERROR);
 }
 
-ErrorCode ParseCLI(int argc, char* argv[], SimulatorFiles* files) {
+ErrorCode ParseCLI(int argc, char* argv[], SimulatorFiles* file_names) {
 	ErrorCode status = NO_ERROR;
 
-	if (argc != 6) {
+	if (argc != 5) {
 		printf("Incorrect number of arguments\n");
 
 		// Return an error code.
 		return (INCORRECT_CLI_ARGUMENTS);
 	}
 
-	// Open the files.
-	SIMFILE_OPEN(files->memin,  argv[1], "memin.txt",  READ)
-	SIMFILE_OPEN(files->memout, argv[2], "memout.txt", WRITE)
-	SIMFILE_OPEN(files->regout, argv[3], "regout.txt", WRITE)
-	SIMFILE_OPEN(files->trace,  argv[4], "trace.txt",  WRITE)
-	SIMFILE_OPEN(files->cycles, argv[5], "cycles.txt", WRITE)
+	// Get the names from command line.
+	file_names->memin  = argv[0];
+	file_names->memout = argv[1];
+	file_names->regout = argv[2];
+	file_names->trace  = argv[3];
+	file_names->cycles = argv[4];
+
+	// Check the files.
+	CHECK_FILE_RETURN_STATUS(file_names->memin,  "memin",  "txt");
+	CHECK_FILE_RETURN_STATUS(file_names->memout, "memout", "txt");
+	CHECK_FILE_RETURN_STATUS(file_names->regout, "regout", "txt");
+	CHECK_FILE_RETURN_STATUS(file_names->trace,  "trace",  "txt");
+	CHECK_FILE_RETURN_STATUS(file_names->cycles, "cycles", "txt");
 
 	// Command line arguments are ok and parsed.
 	return (status);
@@ -106,11 +97,11 @@ void InitializeRegisters(GlobalRegisters* regs) {
 
 int main(int argc, char* argv[]) {
 	ErrorCode status = NO_ERROR;
-	SimulatorFiles files;
+	SimulatorFiles file_names;
 	GlobalRegisters regs;
 
 	// Check the command line arguments.
-	status = ParseCLI(argc, argv, &files);
+	status = ParseCLI(argc, argv, &file_names);
 
 	// Initialize all the registers of the simulator.
 	InitializeRegisters(&regs);
@@ -118,10 +109,8 @@ int main(int argc, char* argv[]) {
 	// General idea:
 	// Run the main loop of the CPU (simulated) with the inputs from the compiler.
 	if (!status) {
-		status = mainLoop(&regs, &files);
-	}
 
-	// TODO: Report status.
+	}
 
 	return (status);
 }

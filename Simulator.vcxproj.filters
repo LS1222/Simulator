@@ -14,10 +14,10 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
     <Filter Include="Header Files\Data Structures">
-      <UniqueIdentifier>{f425ff94-dbfa-49a8-967a-d982d6cf9aa0}</UniqueIdentifier>
+      <UniqueIdentifier>{7970185f-8ae6-4cc0-815a-5e8b2e6c457e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Data Structures">
-      <UniqueIdentifier>{f7ca5657-1ae9-4997-af32-72a6760dd888}</UniqueIdentifier>
+      <UniqueIdentifier>{94deb171-18ed-452c-b9b9-c377c61718ac}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -27,10 +27,10 @@
     <ClCompile Include="main.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Final Project\Simulator\HashTable.c">
+    <ClCompile Include="HashTable.c">
       <Filter>Source Files\Data Structures</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Final Project\Simulator\List.c">
+    <ClCompile Include="List.c">
       <Filter>Source Files\Data Structures</Filter>
     </ClCompile>
   </ItemGroup>
@@ -53,10 +53,10 @@
     <ClInclude Include="Registers.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Final Project\Simulator\List.h">
+    <ClInclude Include="HashTable.h">
       <Filter>Header Files\Data Structures</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Final Project\Simulator\HashTable.h">
+    <ClInclude Include="List.h">
       <Filter>Header Files\Data Structures</Filter>
     </ClInclude>
   </ItemGroup>
