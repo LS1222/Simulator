@@ -3,15 +3,18 @@
 
 #include <stdlib.h>
 
-typedef struct {
-	void*     data;
-	ListNode* next;
-	ListNode* prev;
-} ListNode;
+struct _list_node {
+	void*            data;
+	struct _list_node* next;
+	struct _list_node* prev;
+};
+
+typedef struct _list_node ListNode;
 
 typedef struct {
 	ListNode* first;
-	int       size;
+	ListNode* last;
+	int              size;
 } List;
 
 
@@ -20,10 +23,10 @@ ListNode* ListGet    (List* list, int index);
 ListNode* ListLast   (List* list);
 
 // List Modification Methods.
-void      ListInsert (List* list, ListNode* node, int index);
+int       ListInsert (List* list, ListNode* node, int index);
 ListNode* ListRemove (List* list, int index);
 void      ListClear  (List* list);
-void      ListAppend (List* list, ListNode* node);
+int       ListAppend (List* list, ListNode* node);
 
 // List Information Methods.
 List*     ListCopy   (List* list);

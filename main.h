@@ -8,26 +8,16 @@
 #include <stdio.h>
 #include "GlobalDefines.h"
 #include "Loop.h"
-#include "Registers.h"
-
-// Macros.
-#define CHECK_FILE_RETURN_STATUS(ACTUAL, EXP_NAME, EXP_EXT) { \
-	status = checkCLIfile(ACTUAL, EXP_NAME, EXP_EXT); \
-	if (status != NO_ERROR) { return (status); } \
-}
-
-// Structs.
-typedef struct {
-	char* memin;
-	char* memout;
-	char* regout;
-	char* trace;
-	char* cycles;
-} SimulatorFiles;
+#include "Simulator.h"
 
 // Funciton prototypes.
-ErrorCode checkCLIfile(char* act_name, const char* exp_name, const char* exp_extention);
-ErrorCode ParseCLI(int argc, char* argv[], SimulatorFiles* file_names);
-void InitializeRegisters(GlobalRegisters* regs);
+void InitializeSimulator(Simulator* sim);
+void splitFileExtention(char* file_name, char* name, char* ext);
+void checkCLIfile(char* act_name, const char* exp_name, Simulator* sim);
+void ParseCLI(int argc, char* argv[], Simulator* sim);
+void InitializeMemories(Simulator* sim);
+void PrintMemory(Simulator* sim);
+void PrintRegisters(Simulator* sim);
+void FinalizeSimulation(Simulator* sim);
 
 #endif // __MAIN_H__

@@ -1,8 +1,34 @@
 #ifndef __REGISTERS_H__
 #define __REGISTERS_H__
 
-#define REGISTER_DEFAULT 0;
+#include <stdlib.h>
+
+#define MEMORY_SIZE 4096
+#define REGISTER_DEFAULT 0
+#define MEMORY_WORD_BTIS 20
+#define MAX_MEM_LINE_LENGTH 5
 typedef int unsigned Register;
+
+typedef enum {
+	REGISTER_ZERO,
+	REGISTER_IMMIDIATE,
+	REGISTER_RESULT_VALUE,
+	REGISTER_ARGUMENT_0,
+	REGISTER_ARGUMENT_1,
+	REGISTER_ARGUMENT_2,
+	REGISTER_ARGUMENT_3,
+	REGISTER_TEMPORARY_0,
+	REGISTER_TEMPORARY_1,
+	REGISTER_TEMPORARY_2,
+	REGISTER_SAVED_0,
+	REGISTER_SAVED_1,
+	REGISTER_SAVED_2,
+	REGISTER_GLOBAL_POINTER,
+	REGISTER_STACK_POINTER,
+	REGISTER_RETURN_ADDRESS,
+	REGISTER_PC,
+	NUM_OF_REGISTERS
+} RegisterOpcode;
 
 typedef struct {
 	Register irq0enable   : 1;
@@ -30,39 +56,40 @@ typedef struct {
 } IORegisters;
 
 typedef struct {
-	Register a0 : 32;
-	Register a1 : 32;
-	Register a2 : 32;
-	Register a3 : 32;
-} ArgumentRegisters;
+	// Global Registers.
+	Register* zero; // Constant to 0.
+	Register* imm; // ?????
+	Register* v0; // Result Value.
+	Register* PC; // Program Counter register.
+
+	// Argument Registers.
+	Register* a0;
+	Register* a1;
+	Register* a2;
+	Register* a3;
+
+	// Temporary Registers.
+	Register* t0;
+	Register* t1;
+	Register* t2;
+
+	// Saved Registers.
+	Register* s0;
+	Register* s1;
+	Register* s2;
+
+	// Pointer Registers.
+	Register* gp;
+	Register* sp;
+	Register* ra;
+
+	// IORegisters io_regs; // Bonus.
+} SimulatorRegisters;
 
 typedef struct {
-	Register t0 : 32;
-	Register t1 : 32;
-	Register t2 : 32;
-} TempRegisters;
+	int unsigned word : MEMORY_WORD_BTIS;
+} MemoryWord;
 
-typedef struct {
-	Register s0 : 32;
-	Register s1 : 32;
-	Register s2 : 32;
-}SavedRegisters;
-
-typedef struct {
-	Register gp : 32; // Global Pointer (static data).
-	Register sp : 32; // Stack Pointer.
-	Register ra : 32; // Return Address.
-} PointerRegisters;
-
-typedef struct {
-	Register zero : 32; // Constant to 0.
-	Register imm  : 32; // ?????
-	Register v0   : 32; // Result Value.
-	ArgumentRegisters  arg_regs;
-	TempRegisters      tmp_regs;
-	SavedRegisters     saved_regs;
-	PointerRegisters   ptr_regs;
-	// IORegisters        io_regs; // Bonus.
-} GlobalRegisters;
+typedef MemoryWord* SimulatorMemory;
 
 #endif // _REGISTERS_H__
