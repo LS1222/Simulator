@@ -1,53 +1,45 @@
 #ifndef __SIMULATOR_H__
 #define __SIMULATOR_H__
 
-#include "GlobalDefines.h"
-#include "Formats.h"
-#include "Registers.h"
+/*===================================
+|           INCLUDES                |
+====================================*/
+#include "Global.h"
+#include "Monitor.h"
+#include "Memory.h"
 
-// Defines.
-#define MAX_FILENAME_SIZE 30
-
-// Enums.
-typedef enum {
-	READ,
-	WRITE,
-	READ_BIN,
-	WRITE_BIN,
-	NONE
-} AccessEnum;
-
-// Structs.
+/*===================================
+|            STRUCTS                |
+====================================*/
 typedef struct {
-	char       name[MAX_FILENAME_SIZE];
-	int        name_length;
-	FILE* handle;
-	AccessEnum access;
-} SimFile;
-
-typedef struct {
-	SimFile* memin;
-	SimFile* memout;
-	SimFile* regout;
-	SimFile* trace;
-	SimFile* cycles;
-} SimulatorFiles;
+	int unsigned rt : 4;
+	int unsigned rs : 4;
+	int unsigned rd : 4;
+	int unsigned opcode : 8;
+	int unsigned imm : 20;
+} CommandFormat;
 
 typedef struct {
 	// Memories.
-	SimulatorFiles files;
-	// SimulatorRegisters regs; TODO: Remove.
-	Register regs[NUM_OF_REGISTERS];
-	SimulatorMemory mem;
+	SimulatorFiles    files;
+	SimulatorMemory   mem;
+	SimulatorMonitor  monitor;
+	SimulatorHardDisk hdsk;
+	Register          regs   [NUM_OF_REGISTERS];
+	IORegister        io_regs[NUM_OF_IO_REGISTERS];
+	
 
 	// Global variables.
 	int unsigned cycles;
-	ErrorCode status;
+	ErrorCode    status;
 
 	// Fetch-Decode-Execute variables.
-	MemoryWord lines[2];
-	OpcodeType command_type;
+	MemoryWord    lines[2];
 	CommandFormat command;
+	bool          irq0;
+	bool          irq1;
+	bool          irq2;
+	bool          isr_mode;
 } Simulator;
 
 #endif // __SIMULATOR_H__
